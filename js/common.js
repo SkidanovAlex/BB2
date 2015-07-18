@@ -1,4 +1,4 @@
-var puzzles = [EulerPuzzle];
+var puzzles = [EulerPuzzle, SetsPuzzle];
 var lid = 0; var upd_interval = 0;
 
 var myId = 0, oppId = 0;
