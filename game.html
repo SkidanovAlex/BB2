@@ -1,0 +1,44 @@
+<meta name="viewport" 
+  content="width=device-width, initial-scale=0.8, user-scalable=no">
+<html>
+<head>
+<style>
+body
+{
+    font-family: Arial, Helvetica, sans-serif;
+    background-color: #C8C8C8;
+    margin: 0px 0px 0px 0px;
+    color: black;
+}
+</style>
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js" type="text/javascript"></script>
+</head>
+<body>
+
+<div id='myDivIdOuter' style='border:1px solid #404040;position:absolute;left:5px;top:5px;width:400px;height:500px;background-color:#E8E8E8;'>
+</div>
+<div id='oppDivIdOuter' style='border:1px solid #404040;position:absolute;left:410px;top:5px;width:400px;height:500px;background-color:#E8E8E8;'>
+</div>
+<br>
+
+<script>
+
+function createSquares(elem) {
+    var cellSize = 25;
+    var ret = $('<canvas>').width(cellSize).height(cellSize).attr('width', cellSize).attr('height', cellSize);
+    var ctx = ret.get(0).getContext('2d');
+    ctx.strokeStyle = '#D0D0D0';
+    ctx.fillStyle = 'rgba(0, 0, 0, 0)';
+    ctx.rect(0, 0, cellSize, cellSize);
+    ctx.stroke();
+    elem.css('background-image', 'url(' + ret.get(0).toDataURL() + ')');
+}
+
+createSquares($('#myDivIdOuter'));
+createSquares($('#oppDivIdOuter'));
+
+</script>
+
+</body>
+</html>
+
