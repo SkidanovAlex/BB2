@@ -1,4 +1,4 @@
-var puzzles = [SamplePuzzle];
+var puzzles = [EulerPuzzle];
 var lid = 0; var upd_interval = 0;
 
 var myId = 0, oppId = 0;
@@ -194,6 +194,25 @@ function requestFight2(str)
     waitForOpp();
 }
 
+// This is for objectives
+function creatediv(elem,id, html, width, height, left, top, borderclr) {
+
+    var newdiv = document.createElement('div'); 
+    newdiv.setAttribute('id', id); 
+    if (width) { newdiv.style.width = width; } 
+    if (height) { newdiv.style.height = height; } 
+    if ((left || top) || (left && top)) 
+    { newdiv.style.position = "absolute"; 
+        if (left) 
+        { newdiv.style.left = left; } 
+        if (top) { newdiv.style.top = top; } } 
+        newdiv.style.border = "4px solid " + borderclr; 
+        newdiv.style.backgroundColor = "#e8e8e8"; 
+        //newdiv.style.borderradius = '10px';
+            if (html) { newdiv.innerHTML = "<center>" + html + "</center>"; } 
+            else { newdiv.innerHTML = "nothing"; } 
+    elem.appendChild(newdiv);
+}
 
 var myId = '';
 for (var i = 0; i < 20; ++ i)
