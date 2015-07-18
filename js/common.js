@@ -116,7 +116,7 @@ document.onmouseup = function(evt)
         {
             var evt = [3];
             query("/send/" + myId + "/" + JSON.stringify(evt) + garbage());
-            life(2, myPuzzle.dmg);
+            shoot(2, myPuzzle.dmg);
             startNewPuzzle();
         }
         else
@@ -145,7 +145,7 @@ function opponentEvent(evt)
     }
     else if (evt[0] == 3)
     {
-        life(1, oppPuzzle.dmg);
+        shoot(1, oppPuzzle.dmg);
     }
 }
 
