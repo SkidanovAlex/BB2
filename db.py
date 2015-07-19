@@ -5,6 +5,8 @@ con = pycps.Connection('tcp://cloud-us-0.clusterpoint.com:9007', 'db', 'mikhail.
 events = []
 last_event_id = 0
 
+online_players = []
+
 def insert(key, value):
     con.insert({key: {'payload': value}})
 
@@ -51,11 +53,19 @@ def kill_events(pids):
             new_events.append(event)
     events = new_events
 
+def chat_message(msg):
+    for plr in online_players:
+        print "%s: [%s]" % (plr, msg)
+        add_event(plr, '[100, "%s"]' % msg)
+
 def set_opponents(p1, p2):
     delete('opp_%s' % p1)
     delete('opp_%s' % p2)
     insert('opp_%s' % p1, str(p2))
     insert('opp_%s' % p2, str(p1))
+    global online_players
+    online_players.append(p1)
+    online_players.append(p2)
 
 def get_opponent(pid):
     ret = select('opp_%s' % pid)

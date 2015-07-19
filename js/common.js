@@ -1,4 +1,5 @@
 var puzzles = [EulerPuzzle, SetsPuzzle, BayesPuzzle, HomeoPuzzle];
+//var puzzles = [EulerPuzzle, BayesPuzzle];
 var lid = 0; var upd_interval = 0;
 
 var myId = 0, oppId = 0;
@@ -158,8 +159,22 @@ document.onmouseup = function(evt)
     }
 }
 
+chat_messages = [];
+setInterval(function() {
+    var st = '';
+    var now = new Date().getTime();
+    var moo = function(a) { return a < 10 ? "0" + a : a; }
+    for (var idx in chat_messages) {
+        var v = chat_messages[idx];
+        if (v[1].getTime() + 15000 > now) {
+            st += '<small>[' + moo(v[1].getHours()) + ':' + moo(v[1].getMinutes()) + ':' + moo(v[1].getSeconds()) + ']</small> <b>' + v[0] + '</b><br>';
+        }
+    }
+    $('#chatTd').html(st);
+}, 500);
 function opponentEvent(evt)
 {
+    console.log("FUCK", evt)
     if (evt[0] == 1)
     {
         oppDiv.innerHTML = "";
@@ -180,6 +195,10 @@ function opponentEvent(evt)
     else if (evt[0] == 4)
     {
         shoot(2, 5);
+    }
+    else if (evt[0] == 100) {
+        console.log("FUCK", evt[1])
+        chat_messages.push([evt[1], new Date()]);
     }
 }
 

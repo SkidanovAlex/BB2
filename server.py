@@ -19,6 +19,11 @@ class SendHandler(tornado.web.RequestHandler):
         db.add_event(pid, evt)
         self.finish('1')
 
+class ChatMessageHandler(tornado.web.RequestHandler):
+    def get(self, msg, g):
+        db.chat_message(msg)
+        self.finish('1')
+
 class UpdateHandler(tornado.web.RequestHandler):
     def get(self, pid, lid, g):
         pid = int(pid)
@@ -54,6 +59,7 @@ application = tornado.web.Application([
     (r'/', TopLevelHandler),
     (r'/game', MainHandler),
     (r'/send/([0-9]+)/([^/]+)/([0-9]+)', SendHandler),
+    (r'/chatmsg/([^/]+)/([0-9]+)', ChatMessageHandler),
     (r'/update/([0-9]+)/([0-9]+)/([0-9]+)', UpdateHandler),
     (r'/fight/([0-9]+)/([0-9]+)', FightHandler),
     (r'/images/(.*)', tornado.web.StaticFileHandler, {'path': 'images/'}),
