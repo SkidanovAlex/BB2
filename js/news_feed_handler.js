@@ -90,6 +90,63 @@ var arxiv = [
     ['https://en.wikipedia.org/wiki/Complement_(set_theory)']
 ];
 
+var loadIdolOnDemandSuggestions = function() {
+    $.ajax({
+        url: "https://api.idolondemand.com/1/api/sync/findsimilar/v1?text=Graph&apikey=cd215585-8b06-4834-8695-4b8c49f64d71",
+        type: 'GET',
+        success: function(data) {
+            var docs = data.documents;
+            for (var i = 0; i < docs.length; ++i) {
+                wikiLinks[1].push(docs[i].reference);
+                arxiv[1].push(docs[i].reference);
+            }
+        }
+    });
+    $.ajax({
+        url: "https://api.idolondemand.com/1/api/sync/findsimilar/v1?text=Bayes Theorem&apikey=cd215585-8b06-4834-8695-4b8c49f64d71",
+        type: 'GET',
+        success: function(data) {
+            var docs = data.documents;
+            for (var i = 0; i < docs.length; ++i) {
+                wikiLinks[0].push(docs[i].reference);
+                arxiv[0].push(docs[i].reference);
+            }
+        }
+    });
+    $.ajax({
+        url: "https://api.idolondemand.com/1/api/sync/findsimilar/v1?text=3D models&apikey=cd215585-8b06-4834-8695-4b8c49f64d71",
+        type: 'GET',
+        success: function(data) {
+            var docs = data.documents;
+            for (var i = 0; i < docs.length; ++i) {
+                wikiLinks[2].push(docs[i].reference);
+                arxiv[2].push(docs[i].reference);
+            }
+        }
+    });
+    $.ajax({
+        url: "https://api.idolondemand.com/1/api/sync/findsimilar/v1?text=Set theory Math&apikey=cd215585-8b06-4834-8695-4b8c49f64d71",
+        type: 'GET',
+        success: function(data) {
+            var docs = data.documents;
+            for (var i = 0; i < docs.length; ++i) {
+                wikiLinks[3].push(docs[i].reference);
+                arxiv[3].push(docs[i].reference);
+            }
+        }
+    });
+    $.ajax({
+        url: "https://api.idolondemand.com/1/api/sync/findsimilar/v1?text=Math Algorithm Data Structure&apikey=cd215585-8b06-4834-8695-4b8c49f64d71",
+        type: 'GET',
+        success: function(data) {
+            var docs = data.documents;
+            for (var i = 0; i < docs.length; ++i) {
+                links.push(docs[i].reference);
+            }
+        }
+    });
+};
+
 var loadPuzzlesStats = function () {
     initStats();
     var totalWins = [0, 0, 0, 0];
@@ -191,7 +248,7 @@ var generateSkillMessage = function (topic, skillName, skillId, stats) {
                 strong_text: 'Wow! You are super quick solving ' + skillRealName[skillId] + "!",
                 additional_text: 'Average time is ' + t + " seconds",
                 chart: 'time_chart',
-                arxiv: arxiv[skillId],
+                arxiv: wikiLinks[skillId][rnd(wikiLinks[skillId].length)],
                 style: 'green'
             }
         }
@@ -224,7 +281,7 @@ var generateSkillMessage = function (topic, skillName, skillId, stats) {
                 strong_text: 'Wow! You are really good in ' + skillRealName[skillId] + "!",
                 additional_text: 'You currently have ' + w + "% of winning",
                 chart: 'win_chart',
-                arxiv: arxiv[skillId],
+                arxiv: wikiLinks[skillId][rnd(wikiLinks[skillId].length)],
                 style: 'green'
             }
         }
@@ -257,7 +314,7 @@ var generateSkillMessage = function (topic, skillName, skillId, stats) {
                 strong_text: 'Wow! You definitely know ' + skillRealName[skillId],
                 additional_text: 'You currently have ' + w + "% of skill",
                 chart: 'common_chart',
-                arxiv: arxiv[skillId],
+                arxiv: wikiLinks[skillId][rnd(wikiLinks[skillId].length)],
                 style: 'green'
             }
         }
@@ -290,7 +347,7 @@ var generateSkillMessage = function (topic, skillName, skillId, stats) {
                 strong_text: 'Wow! You definitely know ' + skillRealName[skillId] + "! Almost never skip!",
                 additional_text: 'You currently have ' + w + "% of skips",
                 chart: 'skip_chart',
-                arxiv: arxiv[skillId],
+                arxiv: wikiLinks[skillId][rnd(wikiLinks[skillId].length)],
                 style: 'green'
             }
         }
@@ -328,9 +385,11 @@ var generateAverageMessage = function () {
 };
 
 var links = [
-    'https://vk.com',
-    'https://facebook.com',
-    'https://habrahabr.ru'
+    'https://en.wikipedia.org/wiki/Bayesian_probability',
+    'http://integrals.wolfram.com/index.jsp',
+    'http://en.wikipedia.org/wiki/Array data structure',
+    'http://arxiv.org/pdf/1507.00233.pdf',
+    'http://arxiv.org/pdf/1507.04342.pdf'
 ];
 
 var removeFromNewsFeed = function (id) {
@@ -428,7 +487,7 @@ var renderOneMessage = function (message) {
         var a5 = document.createElement('a');
         a5.href = message.arxiv;
         a5.className = 'btn btn-success btn-sm';
-        a5.innerHTML = 'Arxiv';
+        a5.innerHTML = 'Wiki';
         div4.appendChild(a5);
     }
 
@@ -484,19 +543,12 @@ var addNewToNewsFeed = function () {
     $('#news_feed').append(element);
 };
 
-var renderNewsFeed = function (messages) {
-    for (var i = 0; i < messages.length; ++i) {
-        var element = renderOneMessage(messages[i]);
-        $('#news_feed').append(element);
-    }
-};
-
 $(function () {
     $(document).ready(function () {
+        loadIdolOnDemandSuggestions();
         loadPuzzlesStats();
         for (var i = 0; i < 5; ++i) {
             addNewToNewsFeed();
         }
-        // renderNewsFeed(initMessages);
     });
 });
