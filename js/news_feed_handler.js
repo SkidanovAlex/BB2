@@ -518,15 +518,15 @@ var renderOneMessage = function (message) {
             a.href = "one_skill.html";
 
         } else if (chart_type == 'skip_chart') {
-            a.href = "skip_graph.html";
+            a.href = "one_skill.html";
             globalData = [11, 12, 13, 14, 15, 14, 13, 12, 11];
             globalName = "Skip rate";
         } else if (chart_type == 'win_chart') {
-            a.href = "skip_graph.html";
+            a.href = "one_skill.html";
             globalData = [11, 12, 13, 14, 0, 14, 13, 12, 11];
             globalName = "Average wins";
         } else if (chart_type == 'time_chart') {
-            a.href = "skip_graph.html";
+            a.href = "one_skill.html";
             globalData = [11, 12, 13, 14, 100, 14, 13, 12, 11];
             globalName = "Average time (sec)";
         } else {
