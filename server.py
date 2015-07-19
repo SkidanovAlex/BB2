@@ -54,7 +54,8 @@ application = tornado.web.Application([
     (r'/images/(.*)', tornado.web.StaticFileHandler, {'path': 'images/'}),
     (r'/js/(.*)', tornado.web.StaticFileHandler, {'path': 'js/'}),
     (r'/css/(.*)', tornado.web.StaticFileHandler, {'path': 'css/'}),
-    (r'/*.html', tornado.web.StaticFileHandler, {'path': 'html/'}),
+    (r'/fonts/(.*)', tornado.web.StaticFileHandler, {'path': 'fonts/'}),
+    (r'/(.*\.html)', tornado.web.StaticFileHandler, {'path': 'html/'}),
 ])
 
 if __name__ == '__main__':
