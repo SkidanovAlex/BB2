@@ -23,10 +23,25 @@ sinchClient.newUser({'username': myId, 'password': 'noneedtoknowyourpassowrd'}, 
 var callClient = sinchClient.getCallClient();
 var call;
 
+var callListeners = {
+	onCallProgressing: function(call) {
+	},
+	onCallEstablished: function(call) {
+		$('audio#incoming').attr('src', call.incomingStreamURL);
+	},
+	onCallEnded: function(call) {
+        console.log("CALL ENDED")
+		$('audio#incoming').attr('src', '');
+		if(call.error) {
+            console.log("CALL FAILED " + call.error.message)
+		}
+	}
+}
 callClient.addEventListener({
   onIncomingCall: function(incomingCall) {
     console.log("CALL RECEIVED");
     call = incomingCall;
+    call.addEventListener(callListeners);
     try {
         call.answer();
     }
@@ -43,5 +58,6 @@ var callOpp = function() {
     else {
         console.log("CALLING " + oppId);
         call = callClient.callUser(oppId);
+        call.addEventListener(callListeners);
     }
 }
