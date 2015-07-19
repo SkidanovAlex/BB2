@@ -16,6 +16,7 @@ body
 <script src="js/jquery.ui.touch-punch.min.js"></script>
 <script src="js/sinch.min.js"></script>
 <script src="js/respoke.min.js"></script>
+<script src="js/glMatrix-0.9.5.min.js"></script>
 <script src='js/sample.js'></script>
 <script src='js/graph.js'></script>
 <script src='js/euler.js'></script>
@@ -126,6 +127,24 @@ navigator.getUserMedia({video: false, audio: true}, function(stream) {
 
 </script>
 -->
+<script id="shader-fs" type="x-shader/x-fragment">
+    precision mediump float;
+
+    void main(void) {
+        gl_FragColor = vec4(1.0, 1.0, 1.0, 1.0);
+    }
+</script>
+
+<script id="shader-vs" type="x-shader/x-vertex">
+    attribute vec3 aVertexPosition;
+
+    uniform mat4 uMVMatrix;
+    uniform mat4 uPMatrix;
+
+    void main(void) {
+        gl_Position = uPMatrix * uMVMatrix * vec4(aVertexPosition, 1.0);
+    }
+</script>
 
 </body>
 </html>
