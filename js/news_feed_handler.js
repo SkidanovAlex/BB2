@@ -6,6 +6,64 @@ var getId = function () {
 
 var curTopics = [];
 
+
+
+var getDataFromServer = function() {
+    $.ajax({
+        url: 'get_past_games.html',
+        type: 'GET',
+        success: function(data) {
+            gameData = (data);
+            loadPuzzlesStats();
+            for (var i = 0; i < 5; ++i) {
+                addNewToNewsFeed();
+            }
+        },
+        error: function() {
+            for (var i = 0; i < 1346; ++i) {
+                var game = {
+                    win: ii(2),
+                    hp: ii(78),
+                    hp_enemy: ii(89),
+                    probability: {
+                        wiki: '',
+                        arxiv: '',
+                        win: ii(2),
+                        skipped: ii(2),
+                        time_to_finish: ii(100) + 125
+                    },
+                    graph: {
+                        wiki: '',
+                        arxiv: '',
+                        win: ii(2),
+                        skipped: ii(2),
+                        time_to_finish: ii(35) + 25
+                    },
+                    _3d: {
+                        wiki: '',
+                        arxiv: '',
+                        win: ii(2),
+                        skipped: ii(2),
+                        time_to_finish: ii(30) + 14
+                    },
+                    set_diff: {
+                        wiki: '',
+                        arxiv: '',
+                        win: ii(2),
+                        skipped: ii(2),
+                        time_to_finish: ii(24) + 12
+                    }
+                };
+                gameData.push(game);
+            }
+            loadPuzzlesStats();
+            for (var i = 0; i < 5; ++i) {
+                addNewToNewsFeed();
+            }
+        }
+    });
+};
+
 var gameData = [
     {
         win: 0,
@@ -354,6 +412,10 @@ var generateSkillMessage = function (topic, skillName, skillId, stats) {
     }
 };
 
+var ii = function(x) {
+    return rnd(x);
+};
+
 var generateAverageMessage = function () {
     var topics = [
         'link',
@@ -543,12 +605,19 @@ var addNewToNewsFeed = function () {
     $('#news_feed').append(element);
 };
 
+var renderNewsFeed = function (messages) {
+    for (var i = 0; i < messages.length; ++i) {
+        var element = renderOneMessage(messages[i]);
+        $('#news_feed').append(element);
+    }
+};
+
 $(function () {
     $(document).ready(function () {
         loadIdolOnDemandSuggestions();
-        loadPuzzlesStats();
-        for (var i = 0; i < 5; ++i) {
-            addNewToNewsFeed();
-        }
+        getDataFromServer();
+
+
+        // renderNewsFeed(initMessages);
     });
 });
