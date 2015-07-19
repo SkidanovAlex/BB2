@@ -2,9 +2,9 @@
 $(function () {
     // Age categories
     var categories = [
-        'Probability theory',
+        'Probability',
         'Graph theory',
-        'Integrals',
+        '3D',
         'Set difference'];
     $(document).ready(function () {
         $('#graph1').highcharts({

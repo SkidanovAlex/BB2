@@ -29,7 +29,7 @@ $(function () {
             type: 'pie',
             name: 'Skills',
             data: [
-                ['Integral',   45.0],
+                ['Set Difference',   45.0],
                 ['Probability',       26.8],
                 {
                     name: 'Set difference',
@@ -37,7 +37,8 @@ $(function () {
                     sliced: true,
                     selected: true
                 },
-                ['Graph',    8.5]
+                ['Graph Theory',    8.5],
+                ['3D', 14.5]
             ]
         }]
     });
