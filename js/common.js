@@ -1,4 +1,4 @@
-var puzzles = [EulerPuzzle, SetsPuzzle, BayesPuzzle];
+var puzzles = [EulerPuzzle, SetsPuzzle, BayesPuzzle, HomeoPuzzle];
 var lid = 0; var upd_interval = 0;
 
 var myId = 0, oppId = 0;
@@ -119,6 +119,12 @@ document.onmouseup = function(evt)
             shoot(2, myPuzzle.dmg);
             startNewPuzzle();
         }
+        else if (res === 2) {
+            var evt = [4];
+            query("/send/" + myId + "/" + JSON.stringify(evt) + garbage());
+            shoot(1, 5);
+            startNewPuzzle();
+        }
         else
         {
             myPuzzle.applyEvent(res);
@@ -146,6 +152,10 @@ function opponentEvent(evt)
     else if (evt[0] == 3)
     {
         shoot(1, oppPuzzle.dmg);
+    }
+    else if (evt[0] == 4)
+    {
+        shoot(2, 5);
     }
 }
 

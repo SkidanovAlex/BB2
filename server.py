@@ -5,6 +5,10 @@ import tornado.web
 
 import db
 
+class TopLevelHandler(tornado.web.RequestHandler):
+    def get(self):
+        self.redirect('index.html')
+
 class MainHandler(tornado.web.RequestHandler):
     def get(self):
         self.render('game.html')
@@ -22,7 +26,7 @@ class UpdateHandler(tornado.web.RequestHandler):
         strs = []
         newLid = lid
         for row in db.get_events_past(pid, lid):
-            strs.append("opponentEvent(%s);" % row['evt'])
+            strs.append("if (%s > lid) opponentEvent(%s);" % (row['event_id'], row['evt']))
             newLid = row['event_id']
         strs.append('lid = %s;' % newLid)
         self.finish('\n'.join(strs))
@@ -47,6 +51,7 @@ class FightHandler(tornado.web.RequestHandler):
 
 tornado.options.parse_command_line()
 application = tornado.web.Application([
+    (r'/', TopLevelHandler),
     (r'/game', MainHandler),
     (r'/send/([0-9]+)/([^/]+)/([0-9]+)', SendHandler),
     (r'/update/([0-9]+)/([0-9]+)/([0-9]+)', UpdateHandler),
