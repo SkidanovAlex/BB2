@@ -1,4 +1,5 @@
 var puzzles = [EulerPuzzle, SetsPuzzle, BayesPuzzle, HomeoPuzzle];
+var puzzles = [HomeoPuzzle];
 var lid = 0; var upd_interval = 0;
 
 var myId = 0, oppId = 0;
