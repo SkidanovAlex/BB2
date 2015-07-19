@@ -1,0 +1,10 @@
+<script src='js/ajax.js'></script>
+
+<script>
+    function doit() {
+        query('/chatmsg/' + encodeURIComponent(document.getElementById('moo').value) + '/1');
+    }
+</script>
+
+<input type=text id='moo'>
+<button onclick='doit()'>Send</button>
