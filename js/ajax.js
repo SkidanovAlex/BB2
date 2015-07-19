@@ -26,7 +26,6 @@ function query(url,q)
         {
         if (xh.readyState == 4)
             {  
-                console.log(xh.responseText)
                 eval(xh.responseText);
             }
         }

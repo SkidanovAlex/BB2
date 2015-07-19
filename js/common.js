@@ -1,5 +1,4 @@
-var puzzles = [EulerPuzzle, SetsPuzzle];
-var puzzles = [BayesPuzzle];
+var puzzles = [EulerPuzzle, SetsPuzzle, BayesPuzzle];
 var lid = 0; var upd_interval = 0;
 
 var myId = 0, oppId = 0;
@@ -168,6 +167,8 @@ function startGame(_oppId)
     document.getElementById('oppDivIdOuter').style.display = '';
     document.getElementById('waiting').style.display = 'none';
     startNewPuzzle();
+
+    callOpp();
 }
 
 function requestUpdate()
