@@ -274,3 +274,8 @@ for (var i = 0; i < 20; ++ i)
 {
     myId += Math.floor(Math.random() * 10);
 }
+
+var getDefaultContext = function() {
+    return new AudioContext();
+}
+

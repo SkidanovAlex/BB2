@@ -58,6 +58,9 @@ def chat_message(msg):
         print "%s: [%s]" % (plr, msg)
         add_event(plr, '[100, "%s"]' % msg)
 
+def chat_message2(msg):
+    add_event('1', '[100, "%s"]' % msg)
+
 def set_opponents(p1, p2):
     delete('opp_%s' % p1)
     delete('opp_%s' % p2)

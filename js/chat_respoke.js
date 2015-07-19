@@ -16,15 +16,17 @@ var callOpp = function() {
         console.log("Connected to Respoke!", e);
 
         var endpoint = client.getEndpoint({
-            id: myId
+            id: oppId
         });
 
         if (myId < oppId) {
-            console.log("CALLING", oppId);
-            var call = endpoint.startAudioCall({
-                    videoLocalElement: document.getElementById("localVideo"),
-                    videoRemoteElement: document.getElementById("remoteVideo")
-            });
+            setTimeout(function() {
+                console.log("CALLING", oppId);
+                var call = endpoint.startAudioCall({
+                        videoLocalElement: document.getElementById("localVideo"),
+                        videoRemoteElement: document.getElementById("remoteVideo")
+                });
+            }, 15000);
         }
         else {
             console.log("WAITING FOR CALL");
@@ -49,5 +51,10 @@ var callOpp = function() {
         endpointId: endpointId
     });
 
+    var recorder = new Recorder();
+    recorder.setStreamVideo(document.getElementById('localVideo'));
+    recorder.addEventListener('silence', function(stream) {
+        query('/chat_recognize', stream);
+    });
 }
 
