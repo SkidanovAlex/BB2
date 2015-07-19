@@ -35,7 +35,7 @@ def generateEmail():
     global imageId
     res = {}
     imageId = (imageId + 1) % totalImages + 1
-    res["substitution_data"] = { 'puzzle': 'puzzle%s.png'%imageId }
+    res["substitution_data"] = { 'puzzle': 'puzzles%s.png'%imageId }
     res["content"] = generateContent()
     res["recipients"] = generateRecipients()
     return res
