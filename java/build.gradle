@@ -12,7 +12,7 @@ configurations {
 }
 
 dependencies {
-    compile files('lib/cps2-java-api-java-7.jar')
+    compile files('lib/cps2-java-api.jar')
     provided group:'org.apache.spark', name:'spark-core_2.11', version:'1.4.1'
     provided group:'org.apache.spark', name:'spark-sql_2.11', version:'1.4.1'
     provided 'org.scala-lang:scala-library:2.11.2'

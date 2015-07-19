@@ -1,7 +1,7 @@
 package battlebrains2;
 
 import battlebrains2.config.DatabaseConfiguration;
-import battlebrains2.event.Document;
+import battlebrains2.event.EvtObject;
 import battlebrains2.utils.ObjectsConverter;
 import com.clusterpoint.api.CPSConnection;
 import com.clusterpoint.api.CPSResponse;
@@ -62,7 +62,7 @@ public class ClusterpointHelloWorld {
 
     static void search(CPSConnection conn) throws Exception {
         // Setting parameters
-        String query = "*";
+        String query = "evt*";
 
         // return documents starting with the first one - offset 0
         int offset = 0;
@@ -79,7 +79,7 @@ public class ClusterpointHelloWorld {
             //get list of found documents as DOM Element
             List<Element> results = search_resp.getDocuments();
             for (Element el : results) {
-                System.out.println(ObjectsConverter.fromDOM(el, Document.class));
+                System.out.println(ObjectsConverter.fromDOM(el, EvtObject.class));
             }
         }
     }

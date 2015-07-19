@@ -3,7 +3,7 @@ package battlebrains2.event;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
-@XmlRootElement
+@XmlRootElement(name = "document")
 public class EvtObject {
     private String id;
     private String payload;
@@ -24,5 +24,13 @@ public class EvtObject {
     @XmlElement
     public void setPayload(String payload) {
         this.payload = payload;
+    }
+
+    @Override
+    public String toString() {
+        return "EvtObject{" +
+                "id='" + id + '\'' +
+                ", payload='" + payload + '\'' +
+                '}';
     }
 }
