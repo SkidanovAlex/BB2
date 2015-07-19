@@ -1,5 +1,5 @@
 <meta name="viewport" 
-  content="width=device-width, initial-scale=0.5, user-scalable=no">
+  content="width=device-width, initial-scale=1.0, user-scalable=no">
 <html>
 <head>
 <style>
@@ -106,6 +106,22 @@ createSquares($('#myDivIdOuter'));
 createSquares($('#oppDivIdOuter'));
 
 </script>
+
+<!-- 
+<script>
+var audio = document.getElementById("incoming");
+
+var onRecordFail = function (e) {
+    alert(e);
+}
+navigator.getUserMedia  = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia || navigator.msGetUserMedia;
+navigator.getUserMedia({video: false, audio: true}, function(stream) {
+    alert(1);
+   //audio.src = window.URL.createObjectURL(stream);
+}, onRecordFail);
+
+</script>
+-->
 
 </body>
 </html>
