@@ -1,0 +1,43 @@
+apply plugin: 'idea'
+apply plugin: 'java'
+apply plugin: 'scala'
+
+repositories {
+    mavenCentral()
+}
+
+configurations {
+    provided
+    compile.extendsFrom provided
+}
+
+dependencies {
+    compile files('lib/cps2-java-api-java-7.jar')
+    provided group:'org.apache.spark', name:'spark-core_2.11', version:'1.4.1'
+    provided group:'org.apache.spark', name:'spark-sql_2.11', version:'1.4.1'
+    provided 'org.scala-lang:scala-library:2.11.2'
+}
+
+idea {
+    module {
+        downloadJavadoc = true
+        downloadSources = true
+    }
+}
+
+task wrapper(type: Wrapper) {
+    gradleVersion = '2.4'
+}
+
+jar {
+    dependsOn configurations.runtime
+    from {
+        (configurations.runtime - configurations.provided).collect {
+            it.isDirectory() ? it : zipTree(it)
+        }
+    } {
+        exclude "META-INF/*.SF"
+        exclude "META-INF/*.DSA"
+        exclude "META-INF/*.RSA"
+    }
+}
