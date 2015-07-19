@@ -47,12 +47,14 @@ class FightHandler(tornado.web.RequestHandler):
 
 tornado.options.parse_command_line()
 application = tornado.web.Application([
-    (r'/', MainHandler),
+    (r'/game', MainHandler),
     (r'/send/([0-9]+)/([^/]+)/([0-9]+)', SendHandler),
     (r'/update/([0-9]+)/([0-9]+)/([0-9]+)', UpdateHandler),
     (r'/fight/([0-9]+)/([0-9]+)', FightHandler),
     (r'/images/(.*)', tornado.web.StaticFileHandler, {'path': 'images/'}),
     (r'/js/(.*)', tornado.web.StaticFileHandler, {'path': 'js/'}),
+    (r'/css/(.*)', tornado.web.StaticFileHandler, {'path': 'css/'}),
+    (r'/*.html', tornado.web.StaticFileHandler, {'path': 'html/'}),
 ])
 
 if __name__ == '__main__':
