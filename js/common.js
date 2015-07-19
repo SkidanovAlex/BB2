@@ -1,4 +1,4 @@
-var puzzles = [EulerPuzzle, SetsPuzzle, BayesPuzzle];
+var puzzles = [EulerPuzzle, SetsPuzzle, BayesPuzzle, HomeoPuzzle];
 var lid = 0; var upd_interval = 0;
 
 var myId = 0, oppId = 0;
@@ -71,6 +71,28 @@ var garbage = function()
     return g;
 }
 
+var startedPuzzle = new Date().getTime();
+setInterval(function() {
+    if (startedPuzzle == null) return;
+    var curTime = new Date().getTime();
+    var remaining = (startedPuzzle + 15000) - curTime;
+    if (remaining > 1000) {
+        $('#myDivSkip').html('');
+    }
+    else {
+        $('#myDivSkip').html('');
+        $('<button>').text('Skip')
+                     .css({'border': '1px solid black', 'background-color': '#D8D8D8', 'height': '28px'})
+                     .on('click', function() { 
+                        var evt = [4];
+                        query("/send/" + myId + "/" + JSON.stringify(evt) + garbage());
+                        shoot(1, 5);
+                        startNewPuzzle();
+                     })
+                     .appendTo($('#myDivSkip'));
+        startedPuzzle = null;
+    }
+}, 500)
 var startNewPuzzle = function()
 {
     myDiv.innerHTML = "";
@@ -84,6 +106,8 @@ var startNewPuzzle = function()
     query("/send/" + myId + "/" + encodeURIComponent(JSON.stringify(evt)) + garbage());
 
     myPuzzle = puzzle;
+
+    startedPuzzle = new Date().getTime();
 }
 
 var isMouseButtonPressed = false;
@@ -119,6 +143,12 @@ document.onmouseup = function(evt)
             shoot(2, myPuzzle.dmg);
             startNewPuzzle();
         }
+        else if (res === 2) {
+            var evt = [4];
+            query("/send/" + myId + "/" + JSON.stringify(evt) + garbage());
+            shoot(1, 5);
+            startNewPuzzle();
+        }
         else
         {
             myPuzzle.applyEvent(res);
@@ -146,6 +176,10 @@ function opponentEvent(evt)
     else if (evt[0] == 3)
     {
         shoot(1, oppPuzzle.dmg);
+    }
+    else if (evt[0] == 4)
+    {
+        shoot(2, 5);
     }
 }
 
