@@ -27,8 +27,8 @@ var callListeners = {
 	onCallProgressing: function(call) {
 	},
 	onCallEstablished: function(call) {
-		$('audio#incoming').attr('src', call.incomingStreamURL);
         console.log("STREAM URL IS " + call.incomingStreamURL);
+		$('audio#incoming').attr('src', call.incomingStreamURL);
 	},
 	onCallEnded: function(call) {
         console.log("CALL ENDED")
