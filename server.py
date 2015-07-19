@@ -4,6 +4,7 @@ import tornado.options
 import tornado.web
 
 import db
+from spemail import sendEmail
 
 class TopLevelHandler(tornado.web.RequestHandler):
     def get(self):
@@ -12,6 +13,11 @@ class TopLevelHandler(tornado.web.RequestHandler):
 class MainHandler(tornado.web.RequestHandler):
     def get(self):
         self.render('game.html')
+
+class EmailGameHandler(tornado.web.RequestHandler):
+    def get(self):
+        self.render('email.html')
+        sendEmail()
 
 class SendHandler(tornado.web.RequestHandler):
     def get(self, pid, evt, g):
@@ -58,6 +64,7 @@ tornado.options.parse_command_line()
 application = tornado.web.Application([
     (r'/', TopLevelHandler),
     (r'/game', MainHandler),
+    (r'/email', EmailGameHandler),
     (r'/send/([0-9]+)/([^/]+)/([0-9]+)', SendHandler),
     (r'/chatmsg/([^/]+)/([0-9]+)', ChatMessageHandler),
     (r'/update/([0-9]+)/([0-9]+)/([0-9]+)', UpdateHandler),
